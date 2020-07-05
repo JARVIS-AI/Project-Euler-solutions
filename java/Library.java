@@ -1,6 +1,6 @@
 /* 
  * Shared code for solutions to Project Euler problems
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -34,7 +34,7 @@ final class Library {
 		if (x < 0)
 			throw new IllegalArgumentException("Square root of negative number");
 		int y = 0;
-		for (int i = 32768; i != 0; i >>>= 1) {
+		for (int i = 1 << 15; i != 0; i >>>= 1) {
 			y |= i;
 			if (y > 46340 || y * y > x)
 				y ^= i;
@@ -109,19 +109,19 @@ final class Library {
 		
 		// Exponentiation by squaring
 		int z = 1;
-		while (y != 0) {
+		for (; y != 0; y >>>= 1) {
 			if ((y & 1) != 0)
 				z = (int)((long)z * x % m);
 			x = (int)((long)x * x % m);
-			y >>>= 1;
 		}
 		return z;
 	}
 	
 	
-	// Returns x^-1 mod m, where the result is in the range [0, m). Note that (x * x^-1) mod m = (x^-1 * x) mod m = 1.
+	// Returns x^-1 mod m, where the result is in the range [0, m).
+	// Note that (x * x^-1) mod m = (x^-1 * x) mod m = 1.
 	public static int reciprocalMod(int x, int m) {
-		if (!(m > 0 && 0 <= x && x < m))
+		if (!(0 <= x && x < m))
 			throw new IllegalArgumentException();
 		
 		// Based on a simplification of the extended Euclidean algorithm
@@ -138,7 +138,7 @@ final class Library {
 			b = c;
 		}
 		if (x == 1)
-			return (a + m) % m;
+			return a >= 0 ? a : a + m;
 		else
 			throw new IllegalArgumentException("Reciprocal does not exist");
 	}
@@ -179,7 +179,7 @@ final class Library {
 	}
 	
 	
-	// Tests whether the given integer is prime.
+	// Tests whether the given non-negative integer is prime.
 	public static boolean isPrime(int x) {
 		if (x < 0)
 			throw new IllegalArgumentException("Negative number");
@@ -201,7 +201,8 @@ final class Library {
 	
 	// Returns a Boolean array 'isPrime' where isPrime[i] indicates whether i is prime, for 0 <= i <= n.
 	// For a large batch of queries, this is faster than calling isPrime() for each integer.
-	// For example: listPrimality(100) = {false, false, true, true, false, true, false, true, false, false, ...} (array length 101).
+	// For example: listPrimality(100) = {false, false, true, true, false, true, false, true,
+	// false, false, false, true, false, true, false, false, false, true, ...} (array length 101).
 	public static boolean[] listPrimality(int n) {
 		if (n < 0)
 			throw new IllegalArgumentException("Negative array size");
@@ -214,7 +215,7 @@ final class Library {
 		for (int i = 3, end = sqrt(n); i <= end; i += 2) {
 			if (result[i]) {
 				// Note: i * i does not overflow
-				for (int j = i * i; j <= n; j += i << 1)
+				for (int j = i * i, inc = i * 2; j <= n; j += inc)
 					result[j] = false;
 			}
 		}
@@ -225,16 +226,16 @@ final class Library {
 	// Returns all the prime numbers less than or equal to n, in ascending order.
 	// For example: listPrimes(97) = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, ..., 83, 89, 97}.
 	public static int[] listPrimes(int n) {
-		boolean[] isprime = listPrimality(n);
+		boolean[] isPrime = listPrimality(n);
 		int count = 0;
-		for (boolean b : isprime) {
+		for (boolean b : isPrime) {
 			if (b)
 				count++;
 		}
 		
 		int[] result = new int[count];
-		for (int i = 0, j = 0; i < isprime.length; i++) {
-			if (isprime[i]) {
+		for (int i = 0, j = 0; i < isPrime.length; i++) {
+			if (isPrime[i]) {
 				result[j] = i;
 				j++;
 			}
@@ -243,7 +244,7 @@ final class Library {
 	}
 	
 	
-	// Returns an array spf where spf[k] is the smallest prime factor of k, valid for 0 <= k <= n.
+	// Returns an array spf where spf[k] is the smallest prime factor of k, valid for 2 <= k <= n.
 	// For example: listSmallestPrimeFactors(10) = {0, 0, 2, 3, 2, 5, 2, 7, 2, 3, 2}.
 	public static int[] listSmallestPrimeFactors(int n) {
 		int[] result = new int[n + 1];
@@ -252,6 +253,7 @@ final class Library {
 			if (result[i] == 0) {
 				result[i] = i;
 				if (i <= limit) {
+					// Note: i * i does not overflow
 					for (int j = i * i; j <= n; j += i) {
 						if (result[j] == 0)
 							result[j] = i;
@@ -291,42 +293,44 @@ final class Library {
 	public static int[] listTotients(int n) {
 		if (n < 0)
 			throw new IllegalArgumentException("Negative array size");
-		int[] totients = new int[n + 1];
+		int[] result = new int[n + 1];
 		for (int i = 0; i <= n; i++)
-			totients[i] = i;
+			result[i] = i;
 		
 		for (int i = 2; i <= n; i++) {
-			if (totients[i] == i) {  // i is prime
+			if (result[i] == i) {  // i is prime
 				for (int j = i; j <= n; j += i)
-					totients[j] -= totients[j] / i;
+					result[j] -= result[j] / i;
 			}
 		}
-		return totients;
+		return result;
 	}
 	
 	
-	// Advances the given sequence to the next permutation and returns whether a permutation was performed.
-	// If no permutation was performed, then the input state was already the last possible permutation (a non-ascending sequence).
+	// Attempts to advance the given sequence to the next permutation in lexicographical order.
+	// Returns true if the sequence was successfully permuted, or returns false if the sequence
+	// was already at the last possible permutation (a non-ascending sequence).
+	// Explanation: https://www.nayuki.io/page/next-lexicographical-permutation-algorithm
 	// For example:
 	// - nextPermutation({0,0,1}) changes the argument array to {0,1,0} and returns true.
 	// - nextPermutation({1,0,0}) leaves the argument array unchanged and returns false.
-	public static boolean nextPermutation(int[] a) {
-		int n = a.length, i, j;
-		for (i = n - 2; ; i--) {
-			if (i < 0)
-				return false;
-			if (a[i] < a[i + 1])
-				break;
+	public static boolean nextPermutation(int[] arr) {
+		int i = arr.length - 1;
+		for (; i > 0 && arr[i - 1] >= arr[i]; i--);
+		if (i <= 0)
+			return false;
+		{
+			int j = arr.length - 1;
+			for (; arr[j] <= arr[i - 1]; j--);
+			int temp = arr[i - 1];
+			arr[i - 1] = arr[j];
+			arr[j] = temp;
 		}
-		for (j = 1; i + j < n - j; j++) {
-			int tp = a[i + j];
-			a[i + j] = a[n - j];
-			a[n - j] = tp;
+		for (int j = arr.length - 1; i < j; i++, j--) {
+			int temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
 		}
-		for (j = i + 1; a[j] <= a[i]; j++);
-		int tp = a[i];
-		a[i] = a[j];
-		a[j] = tp;
 		return true;
 	}
 	
@@ -337,8 +341,17 @@ final class Library {
 // Immutable unlimited precision fraction
 final class Fraction implements Comparable<Fraction> {
 	
+	public static final Fraction ZERO = new Fraction(BigInteger.ZERO);
+	
+	
 	public final BigInteger numerator;    // Always coprime with denominator
 	public final BigInteger denominator;  // Always positive
+	
+	
+	public Fraction(BigInteger numer) {
+		numerator = numer;
+		denominator = BigInteger.ONE;
+	}
 	
 	
 	public Fraction(BigInteger numer, BigInteger denom) {
@@ -362,22 +375,30 @@ final class Fraction implements Comparable<Fraction> {
 	
 	
 	public Fraction add(Fraction other) {
-		return new Fraction(numerator.multiply(other.denominator).add(other.numerator.multiply(denominator)), denominator.multiply(other.denominator));
+		return new Fraction(
+			numerator.multiply(other.denominator).add(other.numerator.multiply(denominator)),
+			denominator.multiply(other.denominator));
 	}
 	
 	
 	public Fraction subtract(Fraction other) {
-		return new Fraction(numerator.multiply(other.denominator).subtract(other.numerator.multiply(denominator)), denominator.multiply(other.denominator));
+		return new Fraction(
+			numerator.multiply(other.denominator).subtract(other.numerator.multiply(denominator)),
+			denominator.multiply(other.denominator));
 	}
 	
 	
 	public Fraction multiply(Fraction other) {
-		return new Fraction(numerator.multiply(other.numerator), denominator.multiply(other.denominator));
+		return new Fraction(
+			numerator.multiply(other.numerator),
+			denominator.multiply(other.denominator));
 	}
 	
 	
 	public Fraction divide(Fraction other) {
-		return new Fraction(numerator.multiply(other.denominator), denominator.multiply(other.numerator));
+		return new Fraction(
+			numerator.multiply(other.denominator),
+			denominator.multiply(other.numerator));
 	}
 	
 	
@@ -385,12 +406,14 @@ final class Fraction implements Comparable<Fraction> {
 		if (!(obj instanceof Fraction))
 			return false;
 		Fraction other = (Fraction)obj;
-		return numerator.equals(other.numerator) && denominator.equals(other.denominator);
+		return numerator.equals(other.numerator)
+			&& denominator.equals(other.denominator);
 	}
 	
 	
 	public int compareTo(Fraction other) {
-		return numerator.multiply(other.denominator).compareTo(other.numerator.multiply(denominator));
+		return numerator.multiply(other.denominator)
+			.compareTo(other.numerator.multiply(denominator));
 	}
 	
 	

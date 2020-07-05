@@ -1,14 +1,12 @@
 # 
 # Solution to Project Euler problem 357
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
 
-import eulerlib, sys
-if sys.version_info.major == 2:
-	range = xrange
+import eulerlib
 
 
 # From the problem statement, we are given the search range of 1 <= n <= 10^8.
@@ -48,10 +46,11 @@ def compute():
 	
 	def is_prime_generating(n):
 		return all(
-			n % d != 0 or isprime[d + n // d]
+			(n % d != 0 or isprime[d + n // d])
 			for d in range(2, eulerlib.sqrt(n) + 1))
 	
-	ans = sum(n for n in range(LIMIT + 1) if isprime[n + 1] and is_prime_generating(n))
+	ans = sum(n for n in range(LIMIT + 1)
+		if isprime[n + 1] and is_prime_generating(n))
 	return str(ans)
 
 

@@ -1,14 +1,10 @@
 # 
 # Solution to Project Euler problem 36
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
-
-import sys
-if sys.version_info.major == 2:
-	range = xrange
 
 
 def compute():
@@ -18,10 +14,10 @@ def compute():
 
 def is_decimal_binary_palindrome(n):
 	s = str(n)
-	if s != s[::-1]:
+	if s != s[ : : -1]:
 		return False
 	t = bin(n)[2 : ]
-	return t == t[::-1]
+	return t == t[ : : -1]
 
 
 if __name__ == "__main__":

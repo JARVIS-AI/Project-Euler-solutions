@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 315
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -11,7 +11,9 @@ import eulerlib
 
 def compute():
 	isprime = eulerlib.list_primality(20000000)
-	ans = sum(sam_transitions_minus_max_transitions(i) for (i, p) in enumerate(isprime) if i >= 10000000 and p)
+	ans = sum(sam_transitions_minus_max_transitions(i)
+		for (i, p) in enumerate(isprime)
+		if i >= 10000000 and p)
 	return str(ans)
 
 
@@ -23,11 +25,11 @@ def sam_transitions_minus_max_transitions(n):
 		newstate = number_to_segments(n)
 		if newstate == segmentstate:
 			break
-		maxtrans += bin(newstate ^ segmentstate).count("1")
+		maxtrans += eulerlib.popcount(newstate ^ segmentstate)
 		segmentstate = newstate
-		samtrans += 2 * bin(newstate).count("1")
+		samtrans += 2 * eulerlib.popcount(newstate)
 		n = digit_sum(n)
-	maxtrans += bin(segmentstate).count("1")
+	maxtrans += eulerlib.popcount(segmentstate)
 	return samtrans - maxtrans
 
 
@@ -56,7 +58,7 @@ def digit_sum(n):
 
 
 # Mapping of [0, 10) -> [0x00, 0x7F); each output fits in 7 bits.
-DECIMAL_DIGIT_TO_SEGMENT = [0x77, 0x12, 0x5D, 0x5B, 0x3A, 0x6B, 0x6F, 0x72, 0x7F, 0x7B]
+DECIMAL_DIGIT_TO_SEGMENT = [0b1110111, 0b0010010, 0b1011101, 0b1011011, 0b0111010, 0b1101011, 0b1101111, 0b1110010, 0b1111111, 0b1111011]
 
 
 if __name__ == "__main__":

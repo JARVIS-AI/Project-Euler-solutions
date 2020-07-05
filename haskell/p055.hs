@@ -1,14 +1,16 @@
 {- 
  - Solution to Project Euler problem 55
- - by Project Nayuki
+ - Copyright (c) Project Nayuki. All rights reserved.
  - 
  - https://www.nayuki.io/page/project-euler-solutions
  - https://github.com/nayuki/Project-Euler-solutions
  -}
 
+import qualified EulerLib
+
 
 main = putStrLn (show ans)
-ans = length $ filter (isLychrel 49) [1..9999]
+ans = EulerLib.count (isLychrel 49) [1..9999]
 
 isLychrel 0 n = True
 isLychrel iter n = (next /= reverseInt next) && isLychrel (iter - 1) next where

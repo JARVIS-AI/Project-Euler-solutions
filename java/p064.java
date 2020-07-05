@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 64
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -42,7 +42,7 @@ public final class p064 implements EulerSolution {
 	
 	
 	// Represents (a + b * sqrt(d)) / c. d must not be a perfect square.
-	private static class QuadraticSurd {
+	private static final class QuadraticSurd {
 		
 		public final BigInteger a, b, c, d;
 		

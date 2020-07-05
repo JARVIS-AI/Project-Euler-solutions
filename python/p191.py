@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 191
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -40,7 +40,7 @@ def create_nested_lists(value, *dimensions):
 	elif len(dimensions) == 1:
 		return [value] * dimensions[0]
 	else:
-		return [create_nested_lists(value, *dimensions[1 : ]) for i in range(dimensions[0])]
+		return [create_nested_lists(value, *dimensions[1 : ]) for _ in range(dimensions[0])]
 
 
 if __name__ == "__main__":

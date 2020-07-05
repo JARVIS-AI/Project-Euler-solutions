@@ -1,12 +1,13 @@
 # 
 # Solution to Project Euler problem 22
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
 
 
+# We apply straightforward algorithms to sort the names, sum the letter values, and multiply by the position.
 def compute():
 	ans = sum((i + 1) * (ord(c) - ord('A') + 1)
 		for (i, name) in enumerate(sorted(NAMES))
@@ -14,7 +15,7 @@ def compute():
 	return str(ans)
 
 
-NAMES = [
+NAMES = [  # 10 strings per line, except final line
 	"MARY", "PATRICIA", "LINDA", "BARBARA", "ELIZABETH", "JENNIFER", "MARIA", "SUSAN", "MARGARET", "DOROTHY",
 	"LISA", "NANCY", "KAREN", "BETTY", "HELEN", "SANDRA", "DONNA", "CAROL", "RUTH", "SHARON",
 	"MICHELLE", "LAURA", "SARAH", "KIMBERLY", "DEBORAH", "JESSICA", "SHIRLEY", "CYNTHIA", "ANGELA", "MELISSA",

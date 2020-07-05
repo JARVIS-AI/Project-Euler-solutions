@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 186
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -20,10 +20,10 @@ def compute():
 	return str(ans)
 
 
-class DisjointSet(object):
+class DisjointSet:
 	
 	def __init__(self, size):
-		self.nodes = [DisjointSet.Node() for i in range(size)]
+		self.nodes = [DisjointSet.Node() for _ in range(size)]
 	
 	def _find(self, i):
 		return self.nodes[i].find()
@@ -45,7 +45,7 @@ class DisjointSet(object):
 		return self._find(i).size
 	
 	
-	class Node(object):
+	class Node:
 		def __init__(self):
 			self.parent = self
 			self.rank = 0
@@ -57,7 +57,7 @@ class DisjointSet(object):
 			return self.parent
 
 
-class LfgRandom(object):
+class LfgRandom:
 	
 	def __init__(self):
 		self.k = 1

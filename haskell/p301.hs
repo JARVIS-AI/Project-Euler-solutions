@@ -1,6 +1,6 @@
 {- 
  - Solution to Project Euler problem 301
- - by Project Nayuki
+ - Copyright (c) Project Nayuki. All rights reserved.
  - 
  - https://www.nayuki.io/page/project-euler-solutions
  - https://github.com/nayuki/Project-Euler-solutions
@@ -44,5 +44,5 @@
  - According to the problem statement, we need to exclude 0 and include 2^30. But both are losing positions, so the adjustments cancel out.
  -}
 main = putStrLn (show ans)
-ans = fibonacci 32
+ans = fibonacci !! 32
 fibonacci = 0 : 1 : (zipWith (+) fibonacci (tail fibonacci))

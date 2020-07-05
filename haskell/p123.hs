@@ -1,12 +1,12 @@
 {- 
  - Solution to Project Euler problem 123
- - by Project Nayuki
+ - Copyright (c) Project Nayuki. All rights reserved.
  - 
  - https://www.nayuki.io/page/project-euler-solutions
  - https://github.com/nayuki/Project-Euler-solutions
  -}
 
-import Data.Numbers.Primes (primes)  -- From http://hackage.haskell.org/package/primes
+import Data.Numbers.Primes (primes)  -- From https://hackage.haskell.org/package/primes
 
 
 -- Using the result from Project Euler #120, we know that (a-1)^n + (a+1)^n mod a^2 = if n is even then 2 else 2an. Since 2 is tiny, we can skip the n is even case.

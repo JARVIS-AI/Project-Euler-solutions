@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 57
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -16,11 +16,13 @@ public final class p057 implements EulerSolution {
 	}
 	
 	
+	private static final int LIMIT = 1000;
+	
 	public String run() {
 		BigInteger n = BigInteger.ZERO;
 		BigInteger d = BigInteger.ONE;
 		int count = 0;
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < LIMIT; i++) {
 			BigInteger temp = d.multiply(BigInteger.valueOf(2)).add(n);
 			n = d;
 			d = temp;

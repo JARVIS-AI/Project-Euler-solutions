@@ -1,14 +1,10 @@
 # 
 # Solution to Project Euler problem 216
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
-
-import sys
-if sys.version_info.major == 2:
-	range = xrange
 
 
 # As per the problem statement, define t(n) = 2n^2 - 1 and assume that always n > 1.
@@ -67,11 +63,11 @@ if sys.version_info.major == 2:
 # 
 # Credits:
 #   My algorithm and proof were written with major help from this document:
-#   http://fun-math-problems.googlecode.com/svn/trunk/doc/euler/p216.tex
+#   https://code.google.com/archive/p/fun-math-problems/source/default/source?page=15 , p216.tex
 def compute():
 	# Produce the entire sequence
 	LIMIT = 50000000
-	sequence = [2 * i * i - 1 for i in range(LIMIT + 1)]
+	sequence = [(2 * i * i - 1) for i in range(LIMIT + 1)]
 	sequence[0] = sequence[1] = -1
 	
 	# Divide out factors using a kind of sieve

@@ -1,12 +1,12 @@
 # 
 # Solution to Project Euler problem 267
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
 
-import eulerlib, fractions, math, sys
+import eulerlib, fractions, math
 
 
 # When you win a coin toss, your capital is multiplied by (1 + 2f).
@@ -67,24 +67,13 @@ def calc_billionaire_probability(betproportion, trials):
 
 
 # Converts a fraction to a correctly rounded decimal string.
-def round_to_decimal(fracnum, places):
-	assert places > 0
-	if fracnum < 0:
-		return "-" + round_to_decimal(-fracnum, places)
-	
-	# Round half to even
-	fracnum *= 10**places
-	if sys.version_info.major == 2:
-		rounded = fracnum.numerator // fracnum.denominator
-		frac = fracnum - rounded
-		HALF = fractions.Fraction(1, 2)
-		if frac > HALF or (frac == HALF and rounded % 2 == 1):
-			rounded += 1
-	else:
-		rounded = round(fracnum)
-	
-	s = str(rounded).zfill(places + 1)
-	return s[ : -places] + "." + s[-places : ]
+def round_to_decimal(val, digits):
+	if digits <= 0:
+		raise ValueError()
+	if val < 0:
+		return "-" + round_to_decimal(-val, digits)
+	s = str(round(val * 10**digits)).zfill(digits + 1)
+	return f"{s[:-digits]}.{s[-digits:]}"
 
 
 if __name__ == "__main__":

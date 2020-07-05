@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 27
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -10,8 +10,8 @@ import eulerlib, itertools
 
 
 def compute():
-	# Note: b must be prime because when n = 0, the formula evaluates to just b.
-	ans = max(((a, b) for a in range(-999, 1000) for b in range(2, 1000) if is_prime(b)), key=count_consecutive_primes)
+	ans = max(((a, b) for a in range(-999, 1000) for b in range(2, 1000)),
+		key=count_consecutive_primes)
 	return str(ans[0] * ans[1])
 
 
@@ -23,7 +23,7 @@ def count_consecutive_primes(ab):
 			return i
 
 
-isprimecache = list(map(eulerlib.is_prime, range(1000)))
+isprimecache = eulerlib.list_primality(1000)
 
 def is_prime(n):
 	if n < 0:

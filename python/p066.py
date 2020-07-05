@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 66
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -21,15 +21,8 @@ import eulerlib, fractions
 # - (p, q) if m is even
 # - (p^2 + D q^2, 2pq) if m is odd
 def compute():
-	ans = None
-	maxx = 0
-	for n in range(2, 1001):
-		if is_square(n):
-			continue
-		x = smallest_solution_x(n)
-		if x > maxx:
-			ans = n
-			maxx = x
+	ans = max((n for n in range(2, 1001) if (not eulerlib.is_square(n))),
+		key=smallest_solution_x)
 	return str(ans)
 
 
@@ -63,16 +56,12 @@ def sqrt_to_continued_fraction(n):
 		if val in seen:
 			break
 	split = seen[val]
-	return (terms[ : split], terms[split : ]);
-
-
-def is_square(n):
-	return eulerlib.sqrt(n)**2 == n
+	return (terms[ : split], terms[split : ])
 
 
 
 # Represents (a + b * sqrt(d)) / c. d must not be a perfect square.
-class QuadraticSurd(object):
+class QuadraticSurd:
 	
 	def __init__(self, a, b, c, d):
 		if c == 0:

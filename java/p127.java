@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 127
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -38,7 +38,7 @@ public final class p127 implements EulerSolution {
 	private static final int LIMIT = 120000;
 	
 	public String run() {
-		// Modification of the Sieve of Eratosthenes
+		// Modification of the sieve of Eratosthenes
 		int[] rads = new int[LIMIT];
 		Arrays.fill(rads, 1, rads.length, 1);
 		for (int i = 2; i < rads.length; i++) {

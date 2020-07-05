@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 127
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -27,7 +27,7 @@ import fractions
 def compute():
 	LIMIT = 120000
 	
-	# Modification of the Sieve of Eratosthenes
+	# Modification of the sieve of Eratosthenes
 	rads = [0] + [1] * (LIMIT - 1)
 	for i in range(2, len(rads)):
 		if rads[i] == 1:

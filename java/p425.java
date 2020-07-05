@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 425
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -113,7 +113,7 @@ public final class p425 implements EulerSolution {
 	
 	
 	
-	private static class IntPair implements Comparable<IntPair> {
+	private static final class IntPair implements Comparable<IntPair> {
 		
 		public final int a;
 		public final int b;

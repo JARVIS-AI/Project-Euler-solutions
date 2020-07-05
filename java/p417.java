@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 417
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -58,7 +58,7 @@ public final class p417 implements EulerSolution {
 		int[] primes = Library.listPrimes(LIMIT);
 		
 		// smallestPrimeFactor[i] is the smallest (prime) factor of i
-		int[] smallestPrimeFactor = calcSmallestPrimeFactors(primes);  // Requires 400 MB
+		int[] smallestPrimeFactor = Library.listSmallestPrimeFactors(LIMIT);  // Requires 400 MB
 		
 		// A sorted array of almost all prime powers less than or equal to LIMIT.
 		// Also, each prime power is associated with its totient.
@@ -82,28 +82,13 @@ public final class p417 implements EulerSolution {
 	}
 	
 	
-	private static int[] calcSmallestPrimeFactors(int[] primes) {
-		int[] result = new int[LIMIT + 1];
-		for (int p : primes) {
-			result[p] = p;
-			if ((long)p * p <= LIMIT) {
-				for (int i = p * p; i <= LIMIT; i += p) {
-					if (result[i] == 0)
-						result[i] = p;
-				}
-			}
-		}
-		return result;
-	}
-	
-	
 	private static long[] calcPrimePowersAndTotients(int[] primes) {
-		DynamicArray temp = new DynamicArray(primes.length * 2);
+		LongList temp = new LongList(primes.length * 2);
 		for (int p : primes) {
 			if (p == 2 || p == 5)
 				continue;
 			for (long pow = p, tot = p - 1; pow <= LIMIT; pow *= p, tot *= p)
-				temp.add(pow << 32 | tot);
+				temp.append(pow << 32 | tot);
 		}
 		long[] result = temp.toArray();
 		Arrays.sort(result);
@@ -111,7 +96,7 @@ public final class p417 implements EulerSolution {
 	}
 	
 	
-	private int[] calcPrimePowerPeriods(long[] primePowersAndTotients, int[] smallestPrimeFactor) {
+	private static int[] calcPrimePowerPeriods(long[] primePowersAndTotients, int[] smallestPrimeFactor) {
 		int[] result = new int[primePowersAndTotients.length];
 		for (int i = 0; i < primePowersAndTotients.length; i++) {
 			long ppt = primePowersAndTotients[i];
@@ -132,7 +117,7 @@ public final class p417 implements EulerSolution {
 	}
 	
 	
-	private int[] calcPeriods(long[] primePowersAndTotients, int[] primePowerPeriods) {
+	private static int[] calcPeriods(long[] primePowersAndTotients, int[] primePowerPeriods) {
 		int[] result = new int[LIMIT + 1];
 		result[1] = 1;  // Starter value for accumulating LCM
 		for (int i = 0; i < primePowersAndTotients.length; i++) {
@@ -169,14 +154,14 @@ public final class p417 implements EulerSolution {
 	
 	
 	
-	// A growable list of long values that is more time- and space-efficient than java.util.List<Long>
-	private static class DynamicArray {
+	// A packed, limited-functionality version of ArrayList<Long>.
+	private static final class LongList {
 		
 		private long[] data;
 		private int length;
 		
 		
-		public DynamicArray(int initCapacity) {
+		public LongList(int initCapacity) {
 			if (initCapacity < 1)
 				throw new IllegalArgumentException();
 			data = new long[initCapacity];
@@ -184,7 +169,7 @@ public final class p417 implements EulerSolution {
 		}
 		
 		
-		public void add(long x) {
+		public void append(long x) {
 			if (length == data.length)
 				data = Arrays.copyOf(data, length * 2);
 			data[length] = x;

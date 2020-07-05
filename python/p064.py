@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 64
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -10,7 +10,7 @@ import eulerlib, fractions
 
 
 def compute():
-	ans = sum(1 for i in range(1, 10001) if (not is_square(i) and get_sqrt_continued_fraction_period(i) % 2 == 1))
+	ans = sum(1 for i in range(1, 10001) if (not eulerlib.is_square(i) and get_sqrt_continued_fraction_period(i) % 2 == 1))
 	return str(ans)
 
 
@@ -25,13 +25,9 @@ def get_sqrt_continued_fraction_period(n):
 			return len(seen) - seen[val]
 
 
-def is_square(n):
-	return eulerlib.sqrt(n)**2 == n
-
-
 
 # Represents (a + b * sqrt(d)) / c. d must not be a perfect square.
-class QuadraticSurd(object):
+class QuadraticSurd:
 	
 	def __init__(self, a, b, c, d):
 		if c == 0:

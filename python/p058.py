@@ -1,12 +1,12 @@
 # 
 # Solution to Project Euler problem 58
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
 
-import eulerlib, itertools
+import eulerlib, fractions, itertools
 
 
 # From the diagram, let's observe the four corners of an n * n square (where n is odd).
@@ -18,13 +18,14 @@ import eulerlib, itertools
 # - The top right has the value n^2 - 3(n - 1).
 # Furthermore, the number of elements on the diagonal is 2n - 1.
 def compute():
+	TARGET = fractions.Fraction(1, 10)
 	numprimes = 0
-	for i in itertools.count(1, 2):
-		for j in range(4):
-			if eulerlib.is_prime(i * i - j * (i - 1)):
+	for n in itertools.count(1, 2):
+		for i in range(4):
+			if eulerlib.is_prime(n * n - i * (n - 1)):
 				numprimes += 1
-		if i > 1 and numprimes * 10 < i * 2 - 1:
-			return str(i)
+		if n > 1 and fractions.Fraction(numprimes, n * 2 - 1) < TARGET:
+			return str(n)
 
 
 if __name__ == "__main__":

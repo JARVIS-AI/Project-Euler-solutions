@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 105
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -39,10 +39,8 @@ public final class p105 implements EulerSolution {
 		for (int i = 0; i < (1 << set.length); i++) {  // Step through all subsets
 			int size = Integer.bitCount(i);
 			int sum = 0;
-			for (int j = 0; j < set.length; j++) {
-				if (((i >>> j) & 1) != 0)
-					sum += set[j];
-			}
+			for (int j = 0; j < set.length; j++)
+				sum += set[j] * ((i >>> j) & 1);
 			if (!sumsSeen.add(sum))
 				return false;
 			minSum[size] = Math.min(sum, minSum[size]);

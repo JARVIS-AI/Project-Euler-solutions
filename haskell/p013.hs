@@ -1,6 +1,6 @@
 {- 
  - Solution to Project Euler problem 13
- - by Project Nayuki
+ - Copyright (c) Project Nayuki. All rights reserved.
  - 
  - https://www.nayuki.io/page/project-euler-solutions
  - https://github.com/nayuki/Project-Euler-solutions
@@ -8,7 +8,7 @@
 
 
 -- We do a straightforward sum thanks to Haskell's built-in arbitrary precision Integer type.
-main = putStrLn (show ans)
+main = putStrLn ans
 ans = take 10 $ show (sum numbers)
 
 numbers :: [Integer]

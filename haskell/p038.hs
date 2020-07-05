@@ -1,12 +1,12 @@
 {- 
  - Solution to Project Euler problem 38
- - by Project Nayuki
+ - Copyright (c) Project Nayuki. All rights reserved.
  - 
  - https://www.nayuki.io/page/project-euler-solutions
  - https://github.com/nayuki/Project-Euler-solutions
  -}
 
-import List (sort)
+import Data.List (sort)
 
 
 main = putStrLn (show ans)
@@ -21,6 +21,6 @@ number d = number' d 0 where
 	number' [] acc = acc
 	number' (d:ds) acc = number' ds (acc * 10 + d)
 
-pandigital d = (List.sort d) == [1..9]
+pandigital d = (sort d) == [1..9]
 
 concatProd n x = concat [digits (x * i) | i <- [1..n]]

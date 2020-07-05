@@ -1,14 +1,12 @@
 # 
 # Solution to Project Euler problem 47
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
 
-import eulerlib, itertools, sys
-if sys.version_info.major == 2:
-	filter = itertools.ifilter
+import eulerlib, itertools
 
 
 def compute():
@@ -17,24 +15,21 @@ def compute():
 	return str(ans)
 
 
-distinctprimefactorscache = {}
-
+@eulerlib.memoize
 def count_distinct_prime_factors(n):
-	if n not in distinctprimefactorscache:
-		count = 0
-		x = n
-		while x > 1:
-			count += 1
-			for i in range(2, eulerlib.sqrt(x) + 1):
-				if x % i == 0:
-					x //= i
-					while x % i == 0:
-						x //= i
-					break
-			else:
-				break  # x is prime
-		distinctprimefactorscache[n] = count
-	return distinctprimefactorscache[n]
+	count = 0
+	while n > 1:
+		count += 1
+		for i in range(2, eulerlib.sqrt(n) + 1):
+			if n % i == 0:
+				while True:
+					n //= i
+					if n % i != 0:
+						break
+				break
+		else:
+			break  # n is prime
+	return count
 
 
 if __name__ == "__main__":

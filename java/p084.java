@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 84
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -101,7 +101,7 @@ public final class p084 implements EulerSolution {
 	}
 	
 	
-	private class CardDeck {
+	private final class CardDeck {
 		
 		private int[] cards;
 		private int index;

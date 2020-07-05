@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 39
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -8,7 +8,7 @@
 
 
 def compute():
-	ans = max((p for p in range(1, 1001)), key=count_solutions)
+	ans = max(range(1, 1001), key=count_solutions)
 	return str(ans)
 
 

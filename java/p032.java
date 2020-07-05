@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 32
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -16,16 +16,16 @@ public final class p032 implements EulerSolution {
 	}
 	
 	
+	/* 
+	 * For contradiction suppose a candidate (x, y, z) has z >= 10000.
+	 * Then x*y consumes at least 5 digits. With the 4 (or fewer)
+	 * remaining digits, even the upper bound of x=99 and y=99
+	 * produces a product of x*y < 10000, which is unequal to z.
+	 * 
+	 * Therefore we need the product z < 10000 to be able to find
+	 * possible x and y values.
+	 */
 	public String run() {
-		/* 
-		 * For contradiction suppose a candidate (x, y, z) has z >= 10000.
-		 * Then x*y consumes at least 5 digits. With the 4 (or fewer)
-		 * remaining digits, even the upper bound of x=99 and y=99
-		 * produces a product of x*y < 10000, which is unequal to z.
-		 * 
-		 * Therefore we need the product z < 10000 to be able to find
-		 * possible x and y values.
-		 */
 		int sum = 0;
 		for (int i = 1; i < 10000; i++) {
 			if (hasPandigitalProduct(i))

@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 66
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -58,9 +58,9 @@ public final class p066 implements EulerSolution {
 		temp.addAll(contFrac[0]);
 		temp.addAll(contFrac[1].subList(0, contFrac[1].size() - 1));
 		
-		Fraction val = new Fraction(temp.get(temp.size() - 1), BigInteger.ONE);
+		Fraction val = new Fraction(temp.get(temp.size() - 1));
 		for (int i = temp.size() - 2; i >= 0; i--)
-			val = new Fraction(val.denominator, val.numerator).add(new Fraction(temp.get(i), BigInteger.ONE));
+			val = new Fraction(val.denominator, val.numerator).add(new Fraction(temp.get(i)));
 		
 		if (contFrac[1].size() % 2 == 0)
 			return val.numerator;
@@ -88,7 +88,7 @@ public final class p066 implements EulerSolution {
 	
 	
 	// Represents (a + b * sqrt(d)) / c. d must not be a perfect square.
-	private static class QuadraticSurd {
+	private static final class QuadraticSurd {
 		
 		public final BigInteger a, b, c, d;
 		

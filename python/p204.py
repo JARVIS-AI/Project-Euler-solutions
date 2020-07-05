@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 204
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -17,11 +17,11 @@ def compute():
 		if primeindex == len(primes):
 			return 1 if product <= LIMIT else 0
 		else:
-			cnt = 0
+			result = 0
 			while product <= LIMIT:
-				cnt += count(primeindex + 1, product)
+				result += count(primeindex + 1, product)
 				product *= primes[primeindex]
-			return cnt
+			return result
 	
 	return str(count(0, 1))
 

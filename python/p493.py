@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 493
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -54,14 +54,8 @@ def format_fraction(val, digits):
 		raise ValueError()
 	if val < 0:
 		return "-" + format_fraction(-val, digits)
-	scaler = 10**digits
-	val *= scaler
-	flr = val.numerator // val.denominator
-	rem = val % 1
-	HALF = fractions.Fraction(1, 2)
-	if rem > HALF or (rem == HALF and flr % 2 == 1):
-		flr += 1
-	return "{}.{}".format(flr // scaler, str(flr % scaler).zfill(digits))
+	s = str(round(val * 10**digits)).zfill(digits + 1)
+	return f"{s[:-digits]}.{s[-digits:]}"
 
 
 def divide_exactly(x, y):

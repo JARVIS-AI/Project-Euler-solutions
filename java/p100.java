@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 100
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -55,8 +55,8 @@ public final class p100 implements EulerSolution {
 		BigInteger y0 = BigInteger.valueOf(1);
 		
 		// Current solution
-		BigInteger x = BigInteger.valueOf(3);
-		BigInteger y = BigInteger.valueOf(1);  // An alias for the number of red discs
+		BigInteger x = x0;
+		BigInteger y = y0;  // An alias for the number of red discs
 		while (true) {
 			// Check if this solution is acceptable
 			BigInteger sqrt = Library.sqrt(y.multiply(y).multiply(BigInteger.valueOf(8)).add(BigInteger.ONE));

@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 52
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -17,23 +17,28 @@ public final class p052 implements EulerSolution {
 	
 	
 	public String run() {
-		outer:
 		for (int i = 1; ; i++) {
-			for (int j = 2; j < 6; j++) {
-				if (!hasSameDigits(i * j, i * (j + 1)))
-					continue outer;
-			}
-			return Integer.toString(i);
+			if (i > Integer.MAX_VALUE / 6)
+				throw new ArithmeticException("Overflow");
+			if (multiplesHaveSameDigits(i))
+				return Integer.toString(i);
 		}
 	}
 	
 	
-	private static boolean hasSameDigits(int x, int y) {
-		char[] xdigits = Integer.toString(x).toCharArray();
-		char[] ydigits = Integer.toString(y).toCharArray();
-		Arrays.sort(xdigits);
-		Arrays.sort(ydigits);
-		return Arrays.equals(xdigits, ydigits);
+	private static boolean multiplesHaveSameDigits(int x) {
+		for (int i = 2; i <= 6; i++) {
+			if (!Arrays.equals(toSortedDigits(x), toSortedDigits(i * x)))
+				return false;
+		}
+		return true;
+	}
+	
+	
+	private static char[] toSortedDigits(int x) {
+		char[] result = Integer.toString(x).toCharArray();
+		Arrays.sort(result);
+		return result;
 	}
 	
 }

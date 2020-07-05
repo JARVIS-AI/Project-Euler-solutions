@@ -1,10 +1,12 @@
 {- 
  - Solution to Project Euler problem 188
- - by Project Nayuki
+ - Copyright (c) Project Nayuki. All rights reserved.
  - 
  - https://www.nayuki.io/page/project-euler-solutions
  - https://github.com/nayuki/Project-Euler-solutions
  -}
+
+import qualified EulerLib
 
 
 main = putStrLn (show ans)
@@ -25,4 +27,4 @@ powMod x y m
 		temp = powMod (mod (x * x) m) (div y 2) m
 
 totient :: Integer -> Integer
-totient x = fromIntegral $ sum [1 | y <- [1..x], gcd x y == 1]
+totient x = fromIntegral $ EulerLib.count (\y -> gcd x y == 1) [1..x]

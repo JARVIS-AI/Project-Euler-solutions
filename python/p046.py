@@ -1,20 +1,16 @@
 # 
 # Solution to Project Euler problem 46
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
 
-import eulerlib, itertools, sys
-if sys.version_info.major == 2:
-	filterfalse = itertools.ifilterfalse
-else:
-	filterfalse = itertools.filterfalse
+import eulerlib, itertools
 
 
 def compute():
-	ans = next(filterfalse(test_goldbach, itertools.count(9, 2)))
+	ans = next(itertools.filterfalse(test_goldbach, itertools.count(9, 2)))
 	return str(ans)
 
 

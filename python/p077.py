@@ -1,14 +1,12 @@
 # 
 # Solution to Project Euler problem 77
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
 
-import eulerlib, itertools, sys
-if sys.version_info.major == 2:
-	filter = itertools.ifilter
+import eulerlib, itertools
 
 
 def compute():

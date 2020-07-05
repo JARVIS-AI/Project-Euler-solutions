@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 121
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -43,9 +43,7 @@ def compute():
 			row.append(temp)
 		ways.append(row)
 	
-	numer = 0
-	for i in range(TURNS //2 + 1, TURNS + 1):
-		numer += ways[TURNS][i]
+	numer = sum(ways[TURNS][i] for i in range(TURNS // 2 + 1, TURNS + 1))
 	denom = math.factorial(TURNS + 1)
 	return str(denom // numer)
 

@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 26
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -34,13 +34,14 @@ public final class p026 implements EulerSolution {
 	private static int getCycleLength(int n) {
 		Map<Integer,Integer> stateToIter = new HashMap<>();
 		int state = 1;
-		int iter = 0;
-		while (!stateToIter.containsKey(state)) {
-			stateToIter.put(state, iter);
-			state = state * 10 % n;
-			iter++;
+		for (int iter = 0; ; iter++) {
+			if (stateToIter.containsKey(state))
+				return iter - stateToIter.get(state);
+			else {
+				stateToIter.put(state, iter);
+				state = state * 10 % n;
+			}
 		}
-		return iter - stateToIter.get(state);
 	}
 	
 }

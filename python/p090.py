@@ -1,10 +1,12 @@
 # 
 # Solution to Project Euler problem 90
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
+
+import eulerlib
 
 
 def compute():
@@ -13,7 +15,7 @@ def compute():
 		for i in range(1 << 10)
 		for j in range(i, 1 << 10)  # Ensure i <= j to force the dice to be orderless
 		# If both have Hamming weight of 6
-		if bin(i).count("1") == bin(j).count("1") == 6 and is_arrangement_valid(i, j))
+		if eulerlib.popcount(i) == eulerlib.popcount(j) == 6 and is_arrangement_valid(i, j))
 	return str(ans)
 
 
@@ -30,7 +32,7 @@ def test_bit(x, i):
 	return ((x >> i) & 1) != 0
 
 
-SQUARES = ((0, 1), (0, 4), (0, 9), (1, 6), (2, 5), (3, 6), (4, 9), (6, 4), (8, 1))
+SQUARES = [(i**2 // 10, i**2 % 10) for i in range(1, 10)]
 
 
 if __name__ == "__main__":

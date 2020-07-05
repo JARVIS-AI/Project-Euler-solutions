@@ -1,10 +1,12 @@
 # 
 # Solution to Project Euler problem 26
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
+
+import itertools
 
 
 def compute():
@@ -15,12 +17,12 @@ def compute():
 def reciprocal_cycle_len(n):
 	seen = {}
 	x = 1
-	i = 0
-	while x not in seen:
-		seen[x] = i
-		x = x * 10 % n
-		i += 1
-	return i - seen[x]
+	for i in itertools.count():
+		if x in seen:
+			return i - seen[x]
+		else:
+			seen[x] = i
+			x = x * 10 % n
 
 
 if __name__ == "__main__":

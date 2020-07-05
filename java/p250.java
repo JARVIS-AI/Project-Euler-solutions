@@ -1,6 +1,6 @@
 /* 
  * Solution to Project Euler problem 250
- * by Project Nayuki
+ * Copyright (c) Project Nayuki. All rights reserved.
  * 
  * https://www.nayuki.io/page/project-euler-solutions
  * https://github.com/nayuki/Project-Euler-solutions
@@ -24,7 +24,7 @@ public final class p250 implements EulerSolution {
 		
 		for (int i = 1; i <= 250250; i++) {
 			int temp = Library.powMod(i, i, 250);
-			long[] newArray = numSubsets.clone();
+			long[] newArray = new long[numSubsets.length];
 			for (int j = 0; j < 250; j++)
 				newArray[(j + temp) % 250] = (numSubsets[j] + numSubsets[(j + temp) % 250]) % MODULUS;
 			numSubsets = newArray;

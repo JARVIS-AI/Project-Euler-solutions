@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 85
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -13,7 +13,7 @@ def compute():
 	TARGET = 2000000
 	end = eulerlib.sqrt(TARGET) + 1
 	gen = ((w, h) for w in range(1, end) for h in range(1, end))
-	func = lambda wh: abs(num_rectangles(wh[0], wh[1]) - TARGET)
+	func = lambda wh: abs(num_rectangles(*wh) - TARGET)
 	ans = min(gen, key=func)
 	return str(ans[0] * ans[1])
 

@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 203
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -11,7 +11,7 @@ import eulerlib
 
 def compute():
 	# Collect unique numbers in Pascal's triangle
-	numbers = set(eulerlib.binomial(n, k) for n in range(51) for k in range(0, n + 1))
+	numbers = set(eulerlib.binomial(n, k) for n in range(51) for k in range(n + 1))
 	maximum = max(numbers)
 	
 	# Prepare list of squared primes

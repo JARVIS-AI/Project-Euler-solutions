@@ -1,6 +1,6 @@
 # 
 # Solution to Project Euler problem 205
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
@@ -21,8 +21,8 @@ def compute():
 	ans = 0
 	for i in range(len(nine_pyramidal_pdf)):
 		ans += nine_pyramidal_pdf[i] * sum(six_cubic_pdf[ : i])
-	ans = float(ans) / (4**9 * 6**6)
-	return "{:.7f}".format(ans)
+	ans = float(ans) / (sum(nine_pyramidal_pdf) * sum(six_cubic_pdf))
+	return f"{ans:.7f}"
 
 
 def convolve(a, b):

@@ -1,14 +1,10 @@
 # 
 # Solution to Project Euler problem 30
-# by Project Nayuki
+# Copyright (c) Project Nayuki. All rights reserved.
 # 
 # https://www.nayuki.io/page/project-euler-solutions
 # https://github.com/nayuki/Project-Euler-solutions
 # 
-
-import sys
-if sys.version_info.major == 2:
-	range = xrange
 
 
 def compute():
